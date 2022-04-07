@@ -8,7 +8,7 @@
         <section>
             <div class="main-container">
                 <div class="card">
-                    <h3 class="heading">CF TASK 7 STRUCTURE-</h3>
+                    <h3 class="heading">CF TASK 9 STRUCTURE-</h3>
                     <cfif structKeyExists(form,'Submit')>
                         <cfset key = form.key/>
                         <cfset value = form.value/>
@@ -16,22 +16,33 @@
                         <cfapplication name="structure" sessionTimeout = #CreateTimeSpan(0, 0, 0, 60)#
                         sessionManagement = "Yes">
 
-                        <cfif NOT StructKeyExists(Session,"mystruct")>
+                        <cfif NOT StructKeyExists(Session,"mystructs")>
                             <cflock timeout="20" scope="Session" type="Exclusive">
-                                <cfset Session.mystruct = structNew()>
+                                <cfset Session.mystructs = structNew()>
                             </cflock>
                         </cfif>
-
-                        <cfif StructKeyExists(Session,"mystruct")>
+                        <cfif StructKeyExists(Session,"mystructs")>
+                            <cfset alertArray = arrayNew(1)/>
                             <cfif IsDefined("key") AND isDefined("value")>
-                                    <cfset Session.mystruct["#key#"] = "#value#">
-                            </cfif>
+                                <cfif structKeyExists("#Session.mystructs#", #key#)>
+                                    <cfset arrayAppend(alertArray,"#key# already present,not add again")>
+                                <cfelse>
+                                     <cfset Session.mystructs["#key#"] = "#value#">
+                                </cfif>
+                           </cfif>
                         </cfif>
-
-                         <cfdump var = "#Session.mystruct#"> 
-
+                         <!--- <cfdump var = "#Session.mystructs#">  --->
                     </cfif>
                     <cfform name="cftask_1" action="">
+                        <cfif isDefined("alertArray") AND NOT arrayIsEmpty(alertArray)>
+                            <div class="alert">
+                                <cfloop array = #alertArray# index="alerter">
+                                    <cfoutput>
+                                        <p>#alerter#</p>
+                                    </cfoutput>
+                                </cfloop>
+                            </div>
+                        </cfif>
                         <div class="form-control">
                             <cfinput type="text" placeholder="Enter the key"
                              name="key" message="Please enter number between 1 and 5">
