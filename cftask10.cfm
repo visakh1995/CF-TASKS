@@ -39,15 +39,6 @@
                          <cfdump var = "#Session.mystructs#"> 
                     </cfif>
                     <cfform name="cftask_1" action="">
-                        <!--- <cfif  StructKeyExists(Session,"mystructs")>
-                            <div class="alert">
-                                <cfloop collection = #alertArray# index="alerter">
-                                    <cfoutput>
-                                        <p>#alerter#</p>
-                                    </cfoutput>
-                                </cfloop>
-                            </div>
-                        </cfif> --->
                         <div class="form-control">
                             <cfinput type="text" placeholder="Enter the key"
                              name="key" message="Please enter number between 1 and 5">

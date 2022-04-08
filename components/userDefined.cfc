@@ -1,5 +1,8 @@
-<cfcomponents>
-    <cffunction name="multiply" returnType="number" access="remote">
-        <cfreturn 2>;
+<cfcomponent>
+    <cffunction name="retrieveTableList">
+        <cfquery name="showData" datasource = "cruddb">
+            SELECT * FROM coldfusiion.cftasks
+        </cfquery>
+        <cfreturn showData>
     </cffunction>    
-</cfcomponents>
+</cfcomponent>
